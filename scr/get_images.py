@@ -121,6 +121,7 @@ def download_media(service,file_ids,file_names,pic_store_path):
     df_filtered.to_csv('scr/done.csv',mode="a")
     print("Updated; thank you for your patience")
 
+
 download_media(
     service=service,
     file_ids=file_ids,
