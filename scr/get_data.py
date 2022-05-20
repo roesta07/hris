@@ -51,18 +51,20 @@ df=pd.DataFrame()
 
 
 df=df.assign(
-    id=df_storage['data-meta-instanceID'],
+    name=df_storage['data-Name'],
+    gender=df_storage['data-Gender'],
     email=df_storage['data-e-mail'].replace({'Unspecified':pd.NA}),
     phone=df_storage['data-phone_1_-_Value'].apply(lambda x:'977'+ x if x!='null' else pd.NA),
-    name=df_storage['data-Name'],
     ct=df_storage['data-address_1_-_city'].apply(str.lower).replace({'unspecified':pd.NA}).values,
     country='NP',
+    rod=pd.to_datetime(df_storage['data-today'],format="%d/%m/%y",errors='coerce'),
     dob=df_storage['data-Year_of_Birth'],
     today=df_storage['data-today'],
     photo_id=[get_pic_id(photo) for photo in df_storage['data-photo'].values],
     fn=lambda d: d['name'].apply(get_fn),
     ln=lambda d: d['name'].apply(get_ln),
     age=lambda d: d['dob'].apply(get_age),
+    id=df_storage['data-meta-instanceID'],
     lisc=df_storage['data-Driving_License'].replace({
         'Unspecified':'idk', 'no':'False', 'category_a__motorcycle_scooter':'A',
         'category_a__motorcycle_scooter':'A', 'category_b__car_jeep_delivery':"B",
@@ -75,8 +77,8 @@ df=df.assign(
         'category_b__car_jeep_delivery, category_a__motorcycle_scooter':'AB',
         'category_a__motorcycle_scooter, category_b__car_jeep_delivery':'AB',
 })
-
 )
+
 df=df.loc[lambda df: df['name'] != df['name'].isna(),]
 
 data_storage_path=INPUT_DATA_PATH

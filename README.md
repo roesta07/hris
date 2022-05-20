@@ -7,4 +7,3 @@ All you need for the code to run:
 - sh run.sh to use specific command.
 - - "sh run.sh data" to update data
 -  - "sh run.sh image" to update data
-
